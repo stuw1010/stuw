@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>클립보드 복사 예제</title>
+  <style>
+    /* 필요한 스타일링 추가 */
+    body {
+      text-align: center;
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 클릭하면 클립보드에 복사될 링크 표시 -->
+<p id="copyLink" onclick="copyToClipboard()">https://www.instagram.com</p>
+
+<!-- 클립보드 복사를 처리하는 스크립트 추가 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<script>
+  function copyToClipboard() {
+    var copyLink = document.getElementById('copyLink');
+
+    // Clipboard.js를 사용하여 클립보드에 텍스트 복사
+    var clipboard = new ClipboardJS(copyLink);
+
+    // 클립보드 복사가 성공했을 때의 이벤트 처리
+    clipboard.on('success', function (e) {
+      alert('링크가 클립보드에 복사되었습니다.');
+    });
+
+    // 클립보드 복사가 실패했을 때의 이벤트 처리
+    clipboard.on('error', function (e) {
+      console.error('복사 실패:', e.action);
+    });
+
+    // Clipboard.js에서 제공하는 복사 기능 실행
+    clipboard.copy();
+  }
+</script>
+
+</body>
+</html>
