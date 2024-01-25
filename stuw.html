@@ -15,36 +15,30 @@
 <body>
 
 <!-- 클릭하면 클립보드에 복사될 링크 표시 -->
-<p id="copyLink" onclick="copyToClipboard()">032-710-1482</p>
+<p id="copyLink" onclick="askCopy()">032-710-1482</p>
 
 <!-- 클립보드 복사를 처리하는 스크립트 추가 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 <script>
-  function copyToClipboard() {
-    var copyLink = document.getElementById('copyLink');
+  function askCopy() {
+    var userResponse = confirm('복사하시겠습니까?');
 
-    // Clipboard.js를 사용하여 클립보드에 텍스트 복사
-    var clipboard = new ClipboardJS(copyLink);
+    if (userResponse) {
+      var copyLink = document.getElementById('copyLink');
+      var clipboard = new ClipboardJS(copyLink);
 
-    // 클립보드 복사가 성공했을 때의 이벤트 처리
-    clipboard.on('success', function (e) {
-      alert('전화번호가 클립보드에 복사되었습니다. 확인 버튼을 누르면 창이 닫힙니다.');
-    });
+      clipboard.on('success', function (e) {
+        alert('전화번호가 클립보드에 복사되었습니다.');
+      });
 
-    // 클립보드 복사가 실패했을 때의 이벤트 처리
-    clipboard.on('error', function (e) {
-      console.error('복사 실패:', e.action);
-    });
+      clipboard.on('error', function (e) {
+        console.error('복사 실패:', e.action);
+      });
+
+      clipboard.copy();
+    }
   }
 </script>
-
-<!-- 확인 버튼 클릭 시 창 닫기 -->
-<script>
-  function closeWindow() {
-    window.close();
-  }
-</script>
-<button onclick="closeWindow()">확인</button>
 
 </body>
 </html>
