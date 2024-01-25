@@ -15,32 +15,31 @@
 <body>
 
 <!-- 클릭하면 클립보드에 복사될 링크 표시 -->
-<p id="copyLink" onclick="askCopy()">032-710-1482</p>
+<p id="copyLink" onclick="copyToClipboard()">032-710-1482</p>
 
 <!-- 클립보드 복사를 처리하는 스크립트 추가 -->
 <script>
-  function askCopy() {
-    var userResponse = confirm('복사하시겠습니까?');
+  function copyToClipboard() {
+    var copyLink = document.getElementById('copyLink');
 
-    if (userResponse) {
-      copyTextToClipboard('032-710-1482');
-    }
-  }
-
-  function copyTextToClipboard(text) {
-    var textarea = document.createElement('textarea');
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
+    // contentEditable 속성을 사용하여 복사 대상을 선택 가능하게 함
+    copyLink.contentEditable = true;
+    var range = document.createRange();
+    range.selectNodeContents(copyLink);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
 
     try {
-      document.execCommand('copy');
+      // 복사 실행
+      document.execCommand('cut');
       alert('전화번호가 클립보드에 복사되었습니다.');
     } catch (err) {
       console.error('클립보드 복사 실패:', err);
       alert('클립보드 복사에 실패했습니다. 수동으로 복사해주세요.');
     } finally {
-      document.body.removeChild(textarea);
+      // contentEditable 속성을 다시 false로 변경
+      copyLink.contentEditable = false;
     }
   }
 </script>
