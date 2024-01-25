@@ -29,21 +29,22 @@
     // 클립보드 복사가 성공했을 때의 이벤트 처리
     clipboard.on('success', function (e) {
       alert('전화번호가 클립보드에 복사되었습니다. 확인 버튼을 누르면 창이 닫힙니다.');
-      // 사용자가 확인 버튼을 누르면 창을 닫도록 설정
-      window.close();
     });
 
     // 클립보드 복사가 실패했을 때의 이벤트 처리
     clipboard.on('error', function (e) {
       console.error('복사 실패:', e.action);
-      // 실패 시에도 창을 닫을 수 있도록 설정
-      window.close();
     });
-
-    // Clipboard.js에서 제공하는 복사 기능 실행
-    clipboard.copy();
   }
 </script>
+
+<!-- 확인 버튼 클릭 시 창 닫기 -->
+<script>
+  function closeWindow() {
+    window.close();
+  }
+</script>
+<button onclick="closeWindow()">확인</button>
 
 </body>
 </html>
