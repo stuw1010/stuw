@@ -18,24 +18,22 @@
 <p id="copyLink" onclick="askCopy()">032-710-1482</p>
 
 <!-- 클립보드 복사를 처리하는 스크립트 추가 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 <script>
   function askCopy() {
     var userResponse = confirm('복사하시겠습니까?');
 
     if (userResponse) {
-      var copyLink = document.getElementById('copyLink');
-      var clipboard = new ClipboardJS(copyLink);
+      var copyText = document.getElementById('copyLink').innerText;
+      
+      // textarea를 동적으로 생성하고, 값을 넣어 클립보드에 복사
+      var textarea = document.createElement('textarea');
+      textarea.value = copyText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
 
-      clipboard.on('success', function (e) {
-        alert('전화번호가 클립보드에 복사되었습니다.');
-      });
-
-      clipboard.on('error', function (e) {
-        console.error('복사 실패:', e.action);
-      });
-
-      clipboard.copy();
+      alert('전화번호가 클립보드에 복사되었습니다.');
     }
   }
 </script>
